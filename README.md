@@ -124,6 +124,35 @@ afterRenderItem: function(view, model) {}
 
 You can override this method if you need to do some extra processing on views after they are rendered.
 
+### Item View Events
+
+You can easily listen for events on the views in the collection too. Just add a `viewEvents` object to your collection view.
+This is handy for things like selections.
+
+```js
+var TaskListItem = Backbone.View.extend({
+  events: {
+    'click': 'select'
+  },
+  select: function(event) {
+    this.trigger('select', this);
+  }
+});
+
+var TaskListView = Backbone.CollectionView.extend({
+  itemView: TaskListItem,
+  viewEvents: {
+    'select': 'onItemSelect'
+  },
+  initialize: function(options) {
+    this.selected = [];
+  },
+  onItemSelect: function(view) {
+    this.selected.push(view);
+  }
+});
+```
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
