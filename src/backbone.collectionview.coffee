@@ -1,4 +1,4 @@
-# backbone.collectionview
+# Backbone.CollectionCiew
 # https://github.com/anthonyshort/backbone.collectionview
 #
 # General class for rendering Collections. Extend this class and
@@ -10,6 +10,16 @@
 # Licensed under the MIT license.
 
 class Backbone.CollectionView extends Backbone.View
+
+  # Borrow the extend method
+  @extend: Backbone.Model.extend
+
+  # Add a method to mixin functionality
+  @include: (obj) ->
+    for key, value of obj when key not in moduleKeywords
+      if not @::[key] then @::[key] = value
+    obj.included?.apply(this)
+    this
 
   # The constructor function used to create a view
   # for each of the list items
