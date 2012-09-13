@@ -153,6 +153,22 @@ var TaskListView = Backbone.CollectionView.extend({
 });
 ```
 
+### Collection Events
+
+You can also listen for events on the collection easilt as well.
+
+```js
+var TaskListView = Backbone.CollectionView.extend({
+  itemView: TaskListItem,
+  collectionEvents: {
+    'sort': 'onCollectionSort'
+  },
+  onCollectionSort: function(view) {
+    # Do sorting stuff
+  }
+});
+```
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
