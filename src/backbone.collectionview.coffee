@@ -57,9 +57,8 @@ class Backbone.CollectionView extends Backbone.View
     # These are not in the options property on so derived classes
     # may override them when calling super
     _(options).defaults
-      render: true      # Render the view immediately per default
-      renderItems: true # Render all items immediately per default
-      rendered: false   # Is the view pre-rendered
+      render: false      # Render the view immediately per default
+      renderItems: false # Render all items immediately per default
 
     # Initialize lists for views and visible items
     @viewsByCid = {}
@@ -168,9 +167,9 @@ class Backbone.CollectionView extends Backbone.View
   # This is not simply a property with a constructor so that
   # several item view constructors are possible depending
   # on the item model type.
-  getModelView: (model)->
+  getItemView: (model)->
     unless @itemView
-      throw 'Backbone.CollectionView needs an itemView property set. Alternatively override the getModelView method'
+      throw 'Backbone.CollectionView needs an itemView property set. Alternatively override the getItemView method'
     new @itemView
       model: model
       collection: @collection
@@ -178,7 +177,7 @@ class Backbone.CollectionView extends Backbone.View
   # Add a model view to the list. Create the view for the model
   # and add it to the list
   addModelView: (model)->
-    view = @getModelView(model)
+    view = @getItemView(model)
     @addViewListeners(view)
     view.render()
     @viewsByCid[model.cid] = view

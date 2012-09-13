@@ -1,7 +1,12 @@
-# backbone.collectionview
+# Backbone.CollectionView
 
 A view optimized for rendering collections. Give the CollectionView a collection and a view to render each item with
 and it will take care of updating the view with the collection.
+
+* Whenever a model is added or removed from a collection it will automatically be added or removed from the view. 
+* It will set loading and ready states as well as showing and hiding fallback content if there are no items in the list. 
+* If a model is added to a specific point in a collection it will render the item at the correct spot in the list
+* It will clean up after itself so there are no memory leaks
 
 ## Getting Started
 
@@ -57,10 +62,67 @@ todolist.add({
 ```
 
 ## Documentation
-_(Coming soon)_
 
-## Examples
-_(Coming soon)_
+The first thing you need to know about creating a collection view is that it *needs* a view for the items and a collection. 
+
+### Setting the item view
+
+The item view is the view that is used to render each of the models in the collection. eg. In a list of tasks the item view 
+is the view for a single task item. *Item views will have access to the model and the collection by default*.
+
+You can set the item view in a few ways:
+
+#### 1. As an instance property
+
+```js
+var TaskListView = Backbone.CollectionView.extend({
+  itemView: myItemView
+});
+```
+
+#### 2. In the options
+
+```js
+var TaskListView = Backbone.CollectionView.extend();
+var list = new TaskListView({
+  itemView: myItemView
+}); 
+```
+
+You can use this to override the view set in the original definition as well. This allows you to use the same
+collection view for different types of lists that have the same functionality. For example, a list of albums
+in a library may have a cover view and a title view.
+
+#### 3. Override getItemView method
+
+If you want to do some processing on the view before it's used then you can override the `getItemView` method.
+
+```js
+var TaskListView = Backbone.CollectionView.extend({
+  getItemView: function(model){
+    return new myItemView({
+      model: model
+    }); 
+  }
+});
+```
+
+### Options
+
+* `render` - Automatically render when an instance is created
+* `renderItems` - Automatically render the items. This will also call `render`
+* `itemView` - The view to use to render each item in the collection
+* `collection` - *required* The collection whose models will be rendered.
+
+### After Item Render Hook
+
+There is a method named `afterRenderItem` that will be fired whenever an item is rendered in the list.
+
+```js
+afterRenderItem: function(view, model) {}
+```
+
+You can override this method if you need to do some extra processing on views after they are rendered.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).

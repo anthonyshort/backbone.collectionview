@@ -5,11 +5,30 @@
 (function() {
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   Backbone.CollectionView = (function(_super) {
 
     __extends(CollectionView, _super);
+
+    CollectionView.extend = Backbone.Model.extend;
+
+    CollectionView.include = function(obj) {
+      var key, value, _ref;
+      for (key in obj) {
+        value = obj[key];
+        if (__indexOf.call(moduleKeywords, key) < 0) {
+          if (!this.prototype[key]) {
+            this.prototype[key] = value;
+          }
+        }
+      }
+      if ((_ref = obj.included) != null) {
+        _ref.apply(this);
+      }
+      return this;
+    };
 
     CollectionView.prototype.itemView = null;
 
@@ -44,9 +63,8 @@
         throw "Backbone.CollectionView requires a collection";
       }
       _(options).defaults({
-        render: true,
-        renderItems: true,
-        rendered: false
+        render: false,
+        renderItems: false
       });
       this.viewsByCid = {};
       this.collectionEvents || (this.collectionEvents = {});
@@ -161,9 +179,9 @@
       return _results;
     };
 
-    CollectionView.prototype.getModelView = function(model) {
+    CollectionView.prototype.getItemView = function(model) {
       if (!this.itemView) {
-        throw 'Backbone.CollectionView needs an itemView property set. Alternatively override the getModelView method';
+        throw 'Backbone.CollectionView needs an itemView property set. Alternatively override the getItemView method';
       }
       return new this.itemView({
         model: model,
@@ -173,7 +191,7 @@
 
     CollectionView.prototype.addModelView = function(model) {
       var view;
-      view = this.getModelView(model);
+      view = this.getItemView(model);
       this.addViewListeners(view);
       view.render();
       this.viewsByCid[model.cid] = view;
