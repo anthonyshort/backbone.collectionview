@@ -1,4 +1,4 @@
-# Backbone.CollectionCiew
+# Backbone.CollectionView
 # https://github.com/anthonyshort/backbone.collectionview
 #
 # General class for rendering Collections. Extend this class and
@@ -211,3 +211,5 @@ class Backbone.CollectionView extends Backbone.View
   dispose: ->
     super
     delete @[prop] for prop in ['list','viewsByCid','collection']
+
+module?.exports = Backbone.CollectionView
