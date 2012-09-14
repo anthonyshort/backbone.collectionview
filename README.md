@@ -10,16 +10,30 @@ and it will take care of updating the view with the collection.
 
 ## Getting Started
 
+### Browser
+
 Download the [production version][min] or the [development version][max].
 
 [min]: https://raw.github.com/anthonyshort/backbone.collectionview/master/dist/backbone.collectionview.min.js
 [max]: https://raw.github.com/anthonyshort/backbone.collectionview/master/dist/backbone.collectionview.js
 
-In your web page:
-
 ```html
 <script src="dist/backbone.collectionview.min.js"></script>
 ```
+
+### Bower
+
+```
+bower install backbone.collectionview
+```
+
+### NPM
+
+```
+npm install backbone.collectionview
+```
+
+## Usage 
 
 Create a CollectionView and pass it the collection and the item view.
 
