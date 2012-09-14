@@ -14,13 +14,6 @@ class Backbone.CollectionView extends Backbone.View
   # Borrow the extend method
   @extend: Backbone.Model.extend
 
-  # Add a method to mixin functionality
-  @include: (obj) ->
-    for key, value of obj when key not in moduleKeywords
-      if not @::[key] then @::[key] = value
-    obj.included?.apply(this)
-    this
-
   # The constructor function used to create a view
   # for each of the list items
   itemView: null
@@ -106,7 +99,7 @@ class Backbone.CollectionView extends Backbone.View
     @$el.addClass(@loadingClass)
 
   # Inversely, when it is finished loading and a 'ready' event is fired
-  # we remove the loading class and check to see if we should show the 
+  # we remove the loading class and check to see if we should show the
   # fallback content
   onReady: =>
     @$el.removeClass(@loadingClass)
@@ -133,7 +126,7 @@ class Backbone.CollectionView extends Backbone.View
     @collection.add(model,options)
     @getViewByModel(model)
 
-  # Render the list. This doesn't render the items in the list. Shows the 
+  # Render the list. This doesn't render the items in the list. Shows the
   # fallback content if necessary
   render: ->
     super
