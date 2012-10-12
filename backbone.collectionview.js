@@ -1,4 +1,4 @@
-/*! backbone.collectionview - v0.1.1 - 2012-09-14
+/*! backbone.collectionview - v0.1.1 - 2012-10-12
 * https://github.com/anthonyshort/backbone.collectionview
 * Copyright (c) 2012 Anthony Short; Licensed MIT */
 

@@ -21,7 +21,7 @@
       "url": "https://github.com/anthonyshort/backbone.collectionview/blob/master/LICENSE-MIT"
     }
   ],
-  "main": "lib/backbone.collectionview",
+  "main": "backbone.collectionview",
   "engines": {
     "node": "*"
   },
