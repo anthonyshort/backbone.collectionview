@@ -1,5 +1,6 @@
 {
-  "name": "backbone.collectionview",
+  "name": "collectionview",
   "version": "0.1.2",
-  "main": "./backbone.collectionview.js"
+  "main": "./backbone.collectionview.js",
+  "scripts": [ "backbone.collectionview.js" ]
 }
